@@ -32,10 +32,11 @@ func parse_command_line_arguments() CommandLineArgs {
 		if err != nil {
 			panic("cold not get absolute path of " + *specific_pdf_file)
 		}
-
-		*in_pdf_dir = filepath.Dir(directory)
-		*out_pdf_dir = filepath.Dir(directory)
-		*specific_pdf_file = filepath.Base(*specific_pdf_file)
+		return CommandLineArgs{
+			filepath.Dir(directory),
+			filepath.Dir(directory),
+			filepath.Base(*specific_pdf_file),
+		}
 
 	} else {
 		// 'in' and 'out' dirs must be specified
@@ -52,11 +53,10 @@ func parse_command_line_arguments() CommandLineArgs {
 		if _, err := os.Stat(*out_pdf_dir); err != nil {
 			panic(*out_pdf_dir + " does not exist")
 		}
-	}
-
-	return CommandLineArgs{
-		*in_pdf_dir,
-		*out_pdf_dir,
-		*specific_pdf_file,
+		return CommandLineArgs{
+			*in_pdf_dir,
+			*out_pdf_dir,
+			*specific_pdf_file,
+		}
 	}
 }
