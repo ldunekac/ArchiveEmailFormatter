@@ -2,8 +2,11 @@ package main
 
 import (
 	"io/ioutil"
+	"log"
+	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 func process_single_pdf_file(in_dir string, out_dir string, file_name string) {
@@ -36,6 +39,16 @@ func process_directory(in_dir string, out_dir string) {
 }
 
 func main() {
+	time_stamp := time.Now().Local().Format("20060102_150405")
+	log_file := "pdf_converter_" + time_stamp + ".log"
+	f, err := os.OpenFile(log_file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		print("error opening log file file: %s with error %v", log_file, err)
+		return
+	}
+	defer f.Close()
+	log.SetOutput(f)
+
 	args := parse_command_line_arguments()
 
 	if args.specific_pdf_file != "" {

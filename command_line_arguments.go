@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -13,6 +14,7 @@ type CommandLineArgs struct {
 }
 
 func parse_command_line_arguments() CommandLineArgs {
+	log.Fatal("NNNNNOOOOOOO!!!!!!")
 	var in_pdf_dir = flag.String("in", "", "Specifies the directory that houses the pdfs that need processing.")
 	var out_pdf_dir = flag.String("out", "", "Specifies the directory to save the renamed pdf files.")
 	var specific_pdf_file = flag.String("pdf", "", "Specify a specific pdf to convert. Specifying this will save the newly named pdf in the same location as the origional pdf.")
