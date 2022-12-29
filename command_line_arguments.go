@@ -37,7 +37,7 @@ func parse_command_line_arguments() CommandLineArgs {
 			filepath.Dir(directory),
 			filepath.Base(*specific_pdf_file),
 		}
-	} else {
+	} else if *in_pdf_dir != "" || *out_pdf_dir != "" {
 		// 'in' and 'out' dirs must be specified
 		// since the specific pdf file was not specified
 		if *in_pdf_dir == "" && *out_pdf_dir != "" {
@@ -55,5 +55,7 @@ func parse_command_line_arguments() CommandLineArgs {
 				*specific_pdf_file,
 			}
 		}
+	} else {
+		panic("Need to specify a command line argument. Use -h for Usage.")
 	}
 }
