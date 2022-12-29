@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 	"os"
 	"path/filepath"
 )
@@ -14,7 +13,6 @@ type CommandLineArgs struct {
 }
 
 func parse_command_line_arguments() CommandLineArgs {
-	log.Fatal("NNNNNOOOOOOO!!!!!!")
 	var in_pdf_dir = flag.String("in", "", "Specifies the directory that houses the pdfs that need processing.")
 	var out_pdf_dir = flag.String("out", "", "Specifies the directory to save the renamed pdf files.")
 	var specific_pdf_file = flag.String("pdf", "", "Specify a specific pdf to convert. Specifying this will save the newly named pdf in the same location as the origional pdf.")
@@ -39,26 +37,23 @@ func parse_command_line_arguments() CommandLineArgs {
 			filepath.Dir(directory),
 			filepath.Base(*specific_pdf_file),
 		}
-
 	} else {
 		// 'in' and 'out' dirs must be specified
 		// since the specific pdf file was not specified
 		if *in_pdf_dir == "" && *out_pdf_dir != "" {
 			panic("The command line argument 'in' was specified but 'out' was not. Both need to be specified.")
-		}
-		if *in_pdf_dir != "" && *out_pdf_dir == "" {
+		} else if *in_pdf_dir != "" && *out_pdf_dir == "" {
 			panic("The command line argument 'out' was specified but 'in' was not. Both need to be specified.")
-		}
-		if _, err := os.Stat(*in_pdf_dir); err != nil {
+		} else if _, err := os.Stat(*in_pdf_dir); err != nil {
 			panic(*in_pdf_dir + " does not exist")
-		}
-		if _, err := os.Stat(*out_pdf_dir); err != nil {
+		} else if _, err := os.Stat(*out_pdf_dir); err != nil {
 			panic(*out_pdf_dir + " does not exist")
-		}
-		return CommandLineArgs{
-			*in_pdf_dir,
-			*out_pdf_dir,
-			*specific_pdf_file,
+		} else {
+			return CommandLineArgs{
+				*in_pdf_dir,
+				*out_pdf_dir,
+				*specific_pdf_file,
+			}
 		}
 	}
 }
