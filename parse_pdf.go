@@ -60,7 +60,7 @@ func get_new_pdf_name(path_file_name string) (string, error) {
 	content, err := readPdfByRows(path_file_name) // Read local pdf file
 	if err != nil {
 		return "", errors.Wrap(err, "Could not read "+path_file_name+"\n")
-	} else if len(content) < 5 {
+	} else if len(content) < 6 {
 		return "", errors.New("Error: Could not read content in file " + path_file_name)
 	}
 
